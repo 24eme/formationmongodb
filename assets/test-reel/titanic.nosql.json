@@ -1,0 +1,30 @@
+{
+    "_id": 3,
+    "title": "Titanic",
+    "year": 1997,
+    "genre": "drama",
+    "summary": "Conduite par Brock Lovett, une expédition américaine fouillant l'épave du Titanic remonte à la surface le croquis d'une femme nue. Alertée par les médias la dame en question, Rose DeWitt Bukater, aujourd'hui centenaire, rejoint les lieux du naufrage, d'où elle entreprend de conter le récit de son fascinant, étrange et tragique voyage.",
+    "country": "USA",
+    "director": {
+        "last_name": "Cameron",
+        "first_name": "James",
+        "birth_date": "1954",
+		"nationality": "CA"
+    },
+    "actors": [
+        {
+            "first_name": "Kate",
+            "last_name": "Winslet",
+            "birth_date": "1975",
+            "role": "Rose DeWitt Bukater",
+			"nationality": "UK"
+        },
+        {
+            "first_name": "Leonardo",
+            "last_name": "DiCaprio",
+            "birth_date": "1974",
+            "role": "Jack Dawson",
+			"nationality": "US"
+        }
+    ]
+}

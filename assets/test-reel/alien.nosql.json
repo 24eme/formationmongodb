@@ -1,0 +1,23 @@
+{
+    "_id": 2,
+    "title": "Alien",
+    "year": 1979,
+    "genre": "science-fiction",
+    "summary": "Près d'un vaisseau spatial échoué sur une lointaine planète, des Terriens en mission découvrent de bien étranges oeufs. Ils en ramènent un à bord, ignorant qu'ils viennent d'introduire parmi eux un huitième passager particulièrement féroce et meurtrier.",
+    "country": "USA",
+    "director": {
+        "last_name": "Scott",
+        "first_name": "Ridley",
+        "birth_date": "1937",
+		"nationality": "UK"
+    },
+    "actors": [
+        {
+            "first_name": "Sigourney",
+            "last_name": "Weaver",
+            "birth_date": "1949",
+            "role": "Ripley",
+			"nationality": "US"
+        }
+    ]
+}

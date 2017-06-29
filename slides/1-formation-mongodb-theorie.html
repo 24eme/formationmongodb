@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Formation MongoDB - Théorie</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<a class="fork-reveal" style="display: block;" href="https://docs.mongodb.com/" target="_blank">
+			<img style="height: 28px; margin: 8px 0px 0px 8px; position: absolute; top: 0; left: 0; border: 0;" src="img/mongodb-logo.png" alt="MongoDB">
+		</a>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 style="text-transform: none;">MongoDB</h1>
+					<h3 style="text-transform: none;">Une base de données documentaire<br />NoSQL</h3>
+					<p>
+						<small>Formation basée sur MongoDB 3.2</small>
+					</p>
+					<p>
+						<small>by Jean-Baptiste Le Metayer / <a href="http://www.24eme.fr" target="_blank">24ème</a></small>
+					</p>
+				</section>
+				<section>
+					<h2>SGBDR</h2>
+					<ul>
+						<li>Depuis 1970</li>
+						<li>Organisation en tables</li>
+						<li>Définition d'un schéma</li>
+						<li>Manipulation et recherche avec SQL</li>
+						<li>Propriétés ACID des transactions :</li>
+						<ul>
+							<li>Atomicité, Tout ou rien</li>
+							<li>Cohérence, Respect des contraintes</li>
+							<li>Isolation, Pas d'interférence lors du traitement</li>
+							<li>Durabilité, Garantire l'écriture sur disque</li>
+						</ul>
+					</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">L'internet mondial</h2>
+					<p>Années 2000, Les géants souffraient des limitations des SGBDR :</p>
+					<ul>
+						<li>Clusters répartis dans le monde</li>
+						<li>Quantité gigantesque de données</li>
+					</ul>
+					<p>Principaux besoins :</p>
+					<ul>
+						<li>Performance</li>
+						<li>Réplication</li>
+						<li>Scalabilité</li>
+					</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">Solutions</h2>
+					<p>En 2009 à San Francisco, Convention NoSQL</p>
+					<p>NoSQL = Not Only SQL</p>
+					<p><small>Ex: MySQL + ElasticSearch</small></p>
+					<p>Inauguration de la communauté des développeurs de logiciel NoSQL.</p>
+					<p>
+							<img style="height:120px; padding: 10px; border:none;" alt="MongoDB" src="img/mongodb.png" />
+							<img style="height:120px; padding: 10px; border:none;" alt="CouchDB" src="img/couchdb.png" />
+							<img style="height:120px; padding: 10px; border:none;" alt="Cassandra" src="img/cassandra.png" />
+							<img style="height:120px; padding: 10px; border:none;" alt="BigTable" src="img/bigtable.jpg" />
+							<img style="height:120px; padding: 10px; border:none;" alt="Neo4J" src="img/neo4j.png" />
+							<img style="height:120px; padding: 10px; border:none;" alt="Redis" src="img/redis.png" />
+							<img style="height:120px; padding: 10px; border:none;" alt="DynamoDB" src="img/dynamodb.png" />
+					</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">NoSQL</h2>
+					<p>4 catégories de base de données NoSQL</p>
+					<ul>
+						<li>Clefs / valeurs (Redis, DynamoDB, ...)</li>
+						<li>Colonnes (Cassandra, BigTable, ...)</li>
+						<li>Graphes (Neo4J, ...)</li>
+						<li>Documents (CouchDB, MongoDB, ...)</li>
+					</ul>
+					<p>Les principes du NoSQL</p>
+					<ul>
+						<li >Pas de contraintes (schema, relation, transaction, ...)</li>
+						<li>Big data et performances</li>
+						<li>Scalabilité horizontale et haute disponibilité</li>
+					</ul>
+				</section>
+				<section>
+					<h3 style="text-transform: none;">MongoDB - SQL vs NoSQL</h3>
+					<img style="height: 580px; float: left; border: none; margin-left: 150px;" src="img/sqlschema.png" alt="SQL" />
+					<img style="height: 580px; float: right; border: none; margin-right: 150px;" src="img/nosqldesign.png" alt="NoSQL" />
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Histoire</h2>
+					<ul>
+						<li>Dérivé du terme "humongous" (énorme)</li>
+						<li>SGDB NoSQL orienté document, libre (AGPL), multiplateforme</li>
+						<li>Créé en 2007 par 10gen en C++</li>
+						<li>Considéré stable depuis la version 1.4 (2010)</li>
+					</ul>
+					<p>
+							<img style="height:120px; padding: 10px; border:none;" alt="Ebay" src="img/ebay.jpg" />
+							<img style="height:120px; padding: 10px; border:none;" alt="Foursquare" src="img/foursquare.png" />
+							<img style="height:120px; padding: 10px; border:none;" alt="NYT" src="img/nyt.jpg" />
+							<img style="height:120px; padding: 10px; border:none;" alt="Craigslist" src="img/craigslist.jpg" />
+					</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - JSON</h2>
+					<p>Le "JavaScript Object Notation" est un format de données textuelles dérivé de la notation des objets JS représentant de l’information structurée</p>
+					<pre><code data-trim data-noescape>
+{
+"title": "Vertigo",
+"year": 1958,
+"genre": "drame",
+"summary": "Scottie Ferguson, ancien inspecteur de police, est sujet au vertige depuis qu'il a vu mourir son collègue. Elster, son ami, le charge de surveiller sa femme, Madeleine, ayant des tendanc s suicidaires. Amoureux de la jeune femme Scottie ne remarque pas le piège qui se trame autour de lui et dont il va être la victime... ",
+"country": "USA",
+"director": {
+	"last_name": "Hitchcock",
+	"first_name": "Alfred",
+},
+"actors": [
+	{
+		"first_name": "James",
+		"last_name": "Stewart",
+		"role": "John Ferguson"
+	},
+	{
+		"first_name": "Kim",
+		"last_name": "Novak",
+		"role": "Madeleine Elster"
+	}
+]
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Propriétés</h2>
+					<ul>
+						<li>Manipule des objets BSON (Binary JSON)</li>
+						<li>Le document est l'unité de base</li>
+						<li>Les collections (~ tables) regroupent des documents</li>
+						<li>Les bases de données regroupent les collections</li>
+						<li>Pas de schéma prédéfini (évolutivité)</li>
+						<li>Le champ "_id" est obligatoire et unique (type : ObjectId)</li>
+						<li>Mise à jour atomique d'un document</li>
+					</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Evolutions majeures</h2>
+					<ul>
+						<li>Version 1</li>
+					</ul>
+					<p>Map/Reduce, Replication et failover, Sharding</p>
+					<ul>
+						<li>Version 2</li>
+					</ul>
+					<p>Framework d'agrégation, Données géospatiales, Recherche textuelle</p>
+					<ul>
+						<li>Version 3</li>
+					</ul>
+					<p>Moteur de stockage WiredTiger</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Outils</h2>
+					<div style="width: 40%; float: left;">
+						<ul>
+							<li>mongo : client shell JS</li>
+							<li>mongod : serveur</li>
+						</ul>
+					</div>
+					<div style="width: 60%; float: left;">
+						<ul>
+							<li>mongodump : Export binaire</li>
+							<li>mongorestore : Import binaire</li>
+							<li>mongoexport : Export JSON/CSV</li>
+							<li>mongoimport : Import JSON/CSV</li>
+							<li>mongofiles : Gestion de fichiers GridFS</li>
+							<li>mongooplog : Copie d'oplog</li>
+							<li>mongoperf : Stats I/O</li>
+							<li>mongostat : Etat d'une instance</li>
+							<li>mongotop : Suivi runtime</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Vigilances</h2>
+					<ul>
+						<li>16 Mo = limite d'un doc. JSON</li>
+						<li>Design des données selon les besoins</li>
+						<li>Gestion des index</li>
+						<li>Utilisation de la RAM (Working Set)</li>
+						<li>Architecture 64b (WT, production)</li>
+					</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Tools</h2>
+					<p><a href="http://mongodb-tools.com/" target="_blank">mongodb-tools.com</a></p>
+						<h2 style="text-transform: none;">MongoDB - Documentation</h2>
+						<p><a href="https://docs.mongodb.com/v3.2/reference/" target="_blank">MongoDB 3.2</a></p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c/t',
+				width: "100%",
+				transition: 'slide',
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

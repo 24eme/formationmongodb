@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Formation MongoDB - Administration</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<a class="fork-reveal" style="display: block;" href="https://docs.mongodb.com/" target="_blank">
+			<img style="height: 28px; margin: 8px 0px 0px 8px; position: absolute; top: 0; left: 0; border: 0;" src="img/mongodb-logo.png" alt="MongoDB">
+		</a>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<p>
+						Par défaut, Mongo est accessible sans authentification et permet toutes les actions sur la base.
+					</p>
+					<p>
+						Bien sécuriser MongoDB, consiste à réaliser 4 opérations :
+					</p>
+					<ul>
+						<li>Limiter l'accès à la base par IP (bindIp)</li>
+						<li>Activer l'authentification</li>
+						<li>Définir des utilisateurs aux roles bien définis</li>
+						<li>Chiffrer les échanges</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Utilisateurs</h3>
+					<p>
+						Les users sont stockés dans la base "admin" collection "system.users"
+					</p>
+					<p>Un utilisateur se définit par les champs:</p>
+					<ul>
+						<li>user : username</li>
+						<li>pwd : le mot de passe</li>
+						<li>customData : Informations</li>
+						<li>roles : [{ role: "role", db: "database" }]</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Utilisateurs - Commandes</h3>
+					<pre><code data-trim data-noescape>db.createUser(user, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.changeUserPassword(username, password)</code></pre>
+					<pre><code data-trim data-noescape>db.dropUser(username, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.grantRolesToUser(username, roles, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.revokeRolesFromUser(username, roles, writeConcern)</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Utilisateurs - Authentification</h3>
+					<p>3 mécanismes d'authentification:</p>
+					<ul>
+						<li>MONGODB-CR</li>
+						<li>SCRAM-SHA-1 (par défaut depuis la v3)</li>
+						<li>x.509</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Roles</h3>
+					<p>Liste des roles prédéfinis : <a href="https://docs.mongodb.com/v3.2/reference/built-in-roles/" target="_blank">Built in roles</a></p>
+					<p>Il est possible de créer des roles spécifiques en ajoutant des privilèges (accès aux fonctions) et des roles existants</p>
+					<p>
+						Les nouveaux roles sont stockés dans la base "admin" collection "system.roles"
+					</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Chiffrement</h3>
+					<p>En dev. clef auto-signée (openssl)<br />En prod. authorité de certification (ex. Let's Encrypt)</p>
+					<pre><code>
+net:
+ ssl:
+  mode: requireSSL
+  PEMKeyFile: /etc/ssl/mongodb.pem
+  CAFile: /etc/ssl/ca.pem
+					</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<p>
+						Contrairement aux sauvegardes régulières traditionnelles, la réplication fonctionne comme sauvegarde continue assurant la haute disponibilité et la garantie des données.
+					</p>
+					<p>
+						La réplication fonctionne en mode maitre (w/r) / esclaves (r*).
+					</p>
+					<p><small>* Par défaut le maitre écrit et lit les données (cohérence forte)<br />Les esclaves n'ecrivent jamais pour éviter les conflits et les incohérences<br />Les esclaves peuvent lire mais ne peuvent garantir la cohérence des données</small></p>
+					<p><small></small></p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<h3 style="text-transform: none;">Replica Set</h3>
+					<p>
+						Sous MongoDB, une grappe de serveurs partageant des sauvegardes d'un même ensemble de données est un Replica Set.
+					</p>
+					<p><small>Les données de réplication sont stockées dans la base "local"</small></p>
+					<p>
+						Une instance mongod est un noeud (node)
+					</p>
+					<ul>
+						<li>Noeud maitre : primary</li>
+						<li>Noeuds esclaves : secondaries</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<h3 style="text-transform: none;">Exemple</h3>
+					<img style="height:221px; border:none;" alt="Replica Set" src="img/rs.png" />
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<h3 style="text-transform: none;">Heartbeat</h3>
+					<p>
+						La réplication est gérée de manière transparente avec le système heartbeat.
+					</p>
+					<p>
+						Le heartbeat est une requête (par défaut toutes les 2 sec.), entre chaques noeuds, de demande des nouveaux docs.
+					</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<h3 style="text-transform: none;">WriteConcern</h3>
+					<p>
+						Manière dont Mongo va écrire sur les noeuds du Replica Set.
+					</p>
+					<ul>
+						<li>w: 0, aucun controle</li>
+						<li>w: 1, (défaut) noeud primaire et replication async.</li>
+						<li>w: 2 -> w: 50, termine à l'écriture sur n noeuds</li>
+						<li>w: all, termine à l'écriture sur l'ensemble des noeuds</li>
+						<li>w: majority, termine à l'écriture sur la majorité des noeuds</li>
+						<li>wtimeout, (millisec.) time limit de l'écriture</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<h3 style="text-transform: none;">En cas de panne</h3>
+					<p>
+						FailOver automatique avec élection du nouveau maitre à la majorité absolue. Le nombre de votant doit donc être impair, ou un arbitre doit être créé.
+					</p>
+					<p>
+						La notion de "priority" peut être définit pour chaque noeud, afin de mieux controler l'élection (la valeur 0, rend le noeud "invisible" et ne devriendra jamais primaire).
+					</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Scalabilité horizontale</h3>
+					<p>
+						Le sharding divise les données (chunck) et les distribue sur plusieurs serveurs.<br />
+						Le sharding réduit la quantité de données que chaque serveur doit stocker et le nombre d’opérations à effectuer.<br />
+						Un shard est un noeud d'un cluster. Un cluster est une grappe de shard.<br />
+						Un shard peut être une instance mongod ou un replica set.
+					</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Config Serv</h3>
+					<p>
+						Contient un mapping entre les données (chuncks) du cluster et les shards (localisation). Quelle donnée se trouve sur quel shard.<br />
+						Préconisations MongoDB : 1 en dev., 3 en prod.
+					</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Mongos</h3>
+					<p>
+						Fonctionne comme un loadbalancer
+					</p>
+					<ul>
+						<li>Redirige les opérations vers le shard approprié</li>
+						<li>Equilibre la charge</li>
+						<li>Gestion des users</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Partitionnement des données</h3>
+					<p>
+						Le partitionnement s’effectue en utilisant une clé de sharding.<br />
+						Elle doit être un champ indexé existant dans tous les doc. d'une collection.
+						<ul>
+							<li>Range Sharding</li>
+							<ul>
+								<li>Rapproche les données ayant une clef proche</li>
+								<li>Distribution inégale des données sur les shards</li>
+							</ul>
+							<li>Hash Sharding</li>
+							<ul>
+								<li>Distribution plus aléatoire des données</li>
+								<li>Moins performant pour l'accès aux données</li>
+							</ul>
+						</ul>
+					</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Exemple</h3>
+					<img style="height:221px; border:none;" alt="Replica Set" src="img/sh.png" />
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sauvegardes</h1>
+					<p>Exports</p>
+					<pre><code>mongoexport --db 'db_name' --collection 'collection_name' --out 'file_name'.json</code></pre>
+					<pre><code>mongoexport --db 'db_name' --collection 'collection_name' --type csv --fields "champs1,champs2,..." --out 'file_name'.csv</code></pre>
+					<pre><code>mongodump --db 'db_name' (--collection 'collection_name') 'folder_name'/</code></pre>
+					<p>Imports</p>
+					<pre><code>mongoimport --db 'db_name' --collection 'collection_name' --file 'file_name'.json</code></pre>
+					<pre><code>mongoimport --db 'db_name' --collection 'collection_name' --type csv --fields "champs1,champs2,..." --file 'file_name'.json</code></pre>
+					<pre><code>mongorestore --db 'db_name' (--collection 'collection_name') 'folder_name'/</code></pre>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c/t',
+				width: "100%",
+				transition: 'slide',
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

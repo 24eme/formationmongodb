@@ -1,0 +1,30 @@
+{
+    "_id": 1,
+    "title": "Vertigo",
+    "year": 1958,
+    "genre": "drama",
+    "summary": "Scottie Ferguson, ancien inspecteur de police, est sujet au vertige depuis qu'il a vu mourir son collègue. Elster, son ami, le charge de surveiller sa femme, Madeleine, ayant des tendances suicidaires. Amoureux de la jeune femme Scottie ne remarque pas le piège qui se trame autour de lui et dont il va être la victime.",
+    "country": "USA",
+    "director": {
+        "last_name": "Hitchcock",
+        "first_name": "Alfred",
+        "birth_date": "1899",
+		"nationality": "UK"
+    },
+    "actors": [
+        {
+            "first_name": "James",
+            "last_name": "Stewart",
+            "birth_date": "1908",
+            "role": "John Ferguson",
+			"nationality": "US"
+        },
+        {
+            "first_name": "Kim",
+            "last_name": "Novak",
+            "birth_date": "1925",
+            "role": "Madeleine Elster",
+			"nationality": "US"
+        }
+    ]
+}

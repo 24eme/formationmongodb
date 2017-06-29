@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Formation MongoDB - Pratique</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<a class="fork-reveal" style="display: block;" href="https://docs.mongodb.com/" target="_blank">
+			<img style="height: 28px; margin: 8px 0px 0px 8px; position: absolute; top: 0; left: 0; border: 0;" src="img/mongodb-logo.png" alt="MongoDB">
+		</a>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1 style="text-transform: none;">CRUD</h1>
+					<h3 style="text-transform: none;">Create</h3>
+					<pre><code data-trim data-noescape>db.collection.insert(document, options)</code></pre>
+					<ul>
+						<li>ordered : (true / false)</li>
+						<li>writeConcern : (doc)</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">CRUD</h1>
+					<h3 style="text-transform: none;">Read</h3>
+					<pre><code data-trim data-noescape>db.collection.find(query, projection)</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">CRUD</h1>
+					<h3 style="text-transform: none;">Update</h3>
+					<pre><code data-trim data-noescape>db.collection.update(query, update, options)</code></pre>
+					<ul>
+						<li>upsert : (true / false) si doc. non trouvé, création</li>
+						<li>multi : (true / false)</li>
+						<li>writeConcern : (doc)</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">CRUD</h1>
+					<h3 style="text-transform: none;">Delete</h3>
+					<pre><code data-trim data-noescape>db.collection.remove(query, options)</code></pre>
+					<ul>
+						<li>justOne : (true / false)</li>
+						<li>writeConcern : (doc)</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Recherche</h1>
+					<h3 style="text-transform: none;">Comparaison</h3>
+					<ul>
+						<li>$gt / $gte</li>
+						<li>$lt / $lte</li>
+						<li>$in / $nin</li>
+						<li>$eq / $neq</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Recherche</h1>
+					<h3 style="text-transform: none;">Logique</h3>
+					<ul>
+						<li>$or</li>
+						<li>$and</li>
+						<li>$not</li>
+						<li>$nor</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Recherche</h1>
+					<h3 style="text-transform: none;">Tableau</h3>
+					<ul>
+						<li>$all (eq. $and)</li>
+						<li>$elemMatch</li>
+						<li>$size</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Recherche</h1>
+					<h3 style="text-transform: none;">Autres opérateurs</h3>
+					<ul>
+						<li>$exists</li>
+						<li>$regex</li>
+						<li>...</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Création</h3>
+					<pre><code data-trim data-noescape>db.collection.createIndex(keys, options)</code></pre>
+					<ul>
+						<li>unique : (true / false)</li>
+						<li>sparse : (true / false) le champ doit être présent</li>
+						<li>ttl : (true / false) le document indexé a une durée de vie</li>
+						<li>name</li>
+						<li>...</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Suppression</h3>
+					<pre><code data-trim data-noescape>db.collection.dropIndex(index)</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">FullText</h3>
+					<ul>
+						<li>$search, $language, $caseSensitive, $diacriticSensitive (phonique)</li>
+						<li>Phrase : \"\"</li>
+						<li>Négation: -</li>
+						<li>WildCard : $**</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Agrégation</h1>
+					<h3 style="text-transform: none;">Map/Reduce</h3>
+					<pre><code data-trim data-noescape>db.collection.mapReduce(map, reduce, options)</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Agrégation</h1>
+					<h3 style="text-transform: none;">Framework</h3>
+					<pre><code data-trim data-noescape>db.collection.aggregate(pipeline, options)</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Agrégation</h1>
+					<h3 style="text-transform: none;">Pipeline opérateurs</h3>
+					<ul>
+						<li>$project : projection</li>
+						<li>$match : filtrer</li>
+						<li>$limit et $skip : paginer</li>
+						<li>$unwind : explose les tableaux en doc.</li>
+						<li>$group : agréger</li>
+						<li>$sort : trier</li>
+						<li>$lookup : collection jointure</li>
+						<li>$out : sauvegarde dans une collection</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Agrégation</h1>
+					<h3 style="text-transform: none;">$group opérateur</h3>
+					<ul>
+						<li>_id : clef d'agrégation</li>
+						<li>$sum, $avg : somme, moyenne</li>
+						<li>$first, $last : valeur du premier / dernier doc</li>
+						<li>$max et $min : valeur max / min des docs</li>
+						<li>$push : ajouter de l'information</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Agrégation</h1>
+					<h3 style="text-transform: none;">$lookup exemple</h3>
+						<pre><code>
+movie doc :
+{ "_id": 1, "title": "Vertigo", "year": 1958, "director": 1 }
+
+people doc :
+{ "_id": 1, "first_name": "Alfred", "last_name": "Hitchcock" }
+
+db.people.aggregate([{
+$lookup:
+{
+  localField: "_id",
+  from: "movie",
+  foreignField: "director",
+  as: "a_realise"
+}
+						</code></pre>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c/t',
+				width: "100%",
+				transition: 'slide',
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+{
+    "_id": 4,
+    "title": "Volte/Face",
+    "year": 1997,
+    "genre": "action",
+    "summary": "Directeur d'une unité anti-terroriste, Sean Archer recherche Castor Troy, un criminel responsable de la mort de son fils six ans plus tôt. Il parvient à l'arrêter mais apprend que Troy a caché une bombe au Palais des Congrès de Los Angeles. Seul le frère de Troy peut la désamorcer et, pour l'approcher, Archer se fait greffer le visage de Troy.",
+    "country": "USA",
+    "director": {
+        "last_name": "Woo",
+        "first_name": "John",
+        "birth_date": "1946",
+		"nationality": "CH"
+    },
+    "actors": [
+        {
+            "first_name": "John",
+            "last_name": "Travolta",
+            "birth_date": "1954",
+            "role": "Sean Archer/Castor Troy",
+			"nationality": "US"
+        },
+        {
+            "first_name": "Nicolas",
+            "last_name": "Cage",
+            "birth_date": "1964",
+            "role": "Castor Troy/Sean Archer",
+			"nationality": "US"
+        }
+    ]
+}
