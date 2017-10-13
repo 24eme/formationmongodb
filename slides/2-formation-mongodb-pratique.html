@@ -104,7 +104,7 @@
 					<pre><code data-trim data-noescape>db.collection.createIndex(keys, options)</code></pre>
 					<ul>
 						<li>unique : (true / false)</li>
-						<li>sparse : (true / false) le champ doit être présent</li>
+						<li>sparse : (true / false) uniquement les doc. contenant le champ</li>
 						<li>ttl : (true / false) le document indexé a une durée de vie</li>
 						<li>name</li>
 						<li>...</li>
@@ -123,6 +123,17 @@
 						<li>Phrase : \"\"</li>
 						<li>Négation: -</li>
 						<li>WildCard : $**</li>
+					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Geospatial</h3>
+					<ul>
+						<li>Indexation géospatiale native [<i>longitude</i>, <i>latitude</i>]</li>
+						<li>GeoJson : <a href="http://geojson.org/" target="_blank">geojson.org</a></li>
+						<li>Indexation : 2dsphere (2d jusqu'à 2.2)</li>
+						<li>$near(Sphere), $minDistance, $maxDistance, $geometry</li>
+						<li>Recherches complexes d'aire : $geoWithin, $geoIntersects</li>
 					</ul>
 				</section>
 				<section>

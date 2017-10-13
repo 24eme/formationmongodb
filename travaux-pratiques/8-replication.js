@@ -60,3 +60,13 @@ rs.status();
 // mkdir /data/arbitre;
 // mongod --port 27020 --replSet formationmdb --dbpath /data/arbitre
 rs.add("nom_machine:27020", true);
+// ou
+rs.addAbr("nom_machine:27020");
+
+// Modification priority lors d'une election
+var cfg = rs.conf();
+
+cfg.members[0].priority = 0.5
+cfg.members[1].priority = 2
+
+rs.reconfig(cfg);

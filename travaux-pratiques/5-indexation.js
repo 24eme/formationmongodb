@@ -66,3 +66,21 @@ db.tweets.createIndex({ tweet : "text" }, { language_override: "langue" });
 
 // Recherche
 db.tweets.find({$text: { $search: "...",  $language: "..." }});
+
+// Geospatial index
+
+db.etablissements.createIndex({ localisation : "2dsphere" })
+
+// https://api-adresse.data.gouv.fr/search/?q=11 Rue du Faubourg Poissonnière 75009 Paris
+// [2.3478, 48.871762]
+
+// Etablissements à 10 metres de Pythagore
+db.etablissements.find({localisation: {$near : {$geometry: {type: "Point",  coordinates: [2.3478, 48.871762] }, $maxDistance: 10}}})
+
+// Code APE restaurants : 5610A, 5610B, 5610C
+db.etablissements.createIndex({ localisation : "2dsphere", "caracteristiques_economiques.apet700" : 1 }, {sparse: true})
+
+// Restaurants dans les 100 metres 
+db.etablissements.find({ $and: [{localisation: {$near : {$geometry: {type: "Point",  coordinates: [2.3478, 48.871762] }, $maxDistance: 100}}}, {"caracteristiques_economiques.apet700": {$in: ['5610A', '5610B', '5610C']}}] })
+
+// http://geojson.io/#map

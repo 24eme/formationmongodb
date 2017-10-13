@@ -31,11 +31,24 @@
 					<h1 style="text-transform: none;">MongoDB</h1>
 					<h3 style="text-transform: none;">Une base de données documentaire<br />NoSQL</h3>
 					<p>
-						<small>Formation basée sur MongoDB 3.2</small>
+						<small>Formation basée sur MongoDB v3</small>
 					</p>
 					<p>
 						<small>by Jean-Baptiste Le Metayer / <a href="http://www.24eme.fr" target="_blank">24ème</a></small>
 					</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">Déroulement formation</h2>
+					<ul>
+						<li>Base de données relationnelles et NoSQL</li>
+						<li>Présentation et installation de MongoDB</li>
+						<li>CRUD</li>
+						<li>Indexation, Fulltext, Geospatial</li>
+						<li>Agrégation</li>
+						<li>Sécurité</li>
+						<li>Replication</li>
+						<li>Sharding</li>
+					</ul>
 				</section>
 				<section>
 					<h2>SGBDR</h2>
@@ -208,10 +221,22 @@
 					</ul>
 				</section>
 				<section>
+					<h2 style="text-transform: none;">MongoDB - Working Set</h2>
+					<p>
+						Toute les données sont lues et manipulées à travers la RAM. Lire en RAM (nanosec.) est 100 000 fois plus rapide que sur le disque (millisec.)
+					</p>
+					<p>Lorsque MongoDB essaye d'accéder aux données non présente en RAM :</p>
+					<ul>
+						<li>Si mémoire libre : Donnée chargé dans la RAM</li>
+						<li>Sinon : <strong>Report</strong> d'une donnée sur disque pour charger la nouvelle</li>
+					</ul>
+					<p>Le WS est la partie des données et index les plus couramment utilisés</p>
+				</section>
+				<section>
 					<h2 style="text-transform: none;">MongoDB - Tools</h2>
 					<p><a href="http://mongodb-tools.com/" target="_blank">mongodb-tools.com</a></p>
 						<h2 style="text-transform: none;">MongoDB - Documentation</h2>
-						<p><a href="https://docs.mongodb.com/v3.2/reference/" target="_blank">MongoDB 3.2</a></p>
+						<p><a href="https://docs.mongodb.com/manual/reference/" target="_blank">MongoDB</a></p>
 				</section>
 			</div>
 		</div>
