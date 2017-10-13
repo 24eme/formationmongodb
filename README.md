@@ -4,9 +4,10 @@ Contenu de la formation MongoDB, les contenus sont réutilisables sous license C
 
 ## Installation
 
-La documentation MongoDB offre un bon guide d'installation de MongoDB sous Debian dans sa version 3.2 (version utilisée pour la formation).
+La documentation MongoDB offre un bon guide d'installation de MongoDB sous Debian dans sa version 3.
 
 [Install MongoDB 3.2 on Debian](https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-debian/)
+[Install MongoDB 3.4 on Debian](https://docs.mongodb.com/v3.4/tutorial/install-mongodb-on-debian/)
 
 ## Présentation
 
@@ -32,5 +33,6 @@ La formation utilise 2 bases de données différentes :
 ## Ressources intéressantes
 
 * [Documentation officielle MongoDB 3.2](https://docs.mongodb.com/v3.2/reference/)
+* [Documentation officielle MongoDB 3.4](https://docs.mongodb.com/v3.4/reference/)
 * [Outils disponible pour MongoDB](http://mongodb-tools.com/)
 * [Documentation de la base sirenes](http://sirene.fr/sirene/public/static/contenu-fichiers)
