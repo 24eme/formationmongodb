@@ -7,6 +7,7 @@ Contenu de la formation MongoDB, les contenus sont réutilisables sous license C
 La documentation MongoDB offre un bon guide d'installation de MongoDB sous Debian dans sa version 3.
 
 [Install MongoDB 3.2 on Debian](https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-debian/)
+
 [Install MongoDB 3.4 on Debian](https://docs.mongodb.com/v3.4/tutorial/install-mongodb-on-debian/)
 
 ## Présentation
