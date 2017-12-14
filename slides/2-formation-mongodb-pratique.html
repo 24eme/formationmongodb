@@ -191,6 +191,20 @@ $lookup:
 }
 						</code></pre>
 				</section>
+				<section>
+					<h1 style="text-transform: none;">Fichiers</h1>
+					<h3 style="text-transform: none;">GridFS</h3>
+
+					<ul>
+						<li>Stocke et récupère des fichiers (pas de limite de taille)</li>
+						<li>Découpe en document (chunk de 255Ko) </li>
+						<li>Fichier inf. 16 Mo : 1 doc. base64 + type BinData (/!\ 33%)</li>
+						<li>2 collections : fs.files (metadata), fs.chunks</li>
+						<li>Accès au fichier complet ou en partie (vidéo)</li>
+						<li>Avantages : limite repertoire, partie de fichier en mémoire, réplication, sharding (pas de Hashed sharding key)</li>
+					</ul>
+
+				</section>
 			</div>
 		</div>
 
