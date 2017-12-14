@@ -23,7 +23,7 @@ db.movies.update( { country: "USA" }, { $unset: { oscars: "" } });
 db.movies.update( { title: "Alien" }, { $set: { actors: [] } });
 db.movies.update( { title: "Alien" }, { $push: { actors: {first_name: "Sigourney", last_name: "Weaver", birth_date: "1949-10-08", nationality: "GB", role: "Ellen L. Ripley"}}});
 
-/* addToSet au lieu de push pour mettre un sous tableau par exemple */
+/* addToSet au lieu de push pour des valeurs uniques */
 
 // Modifier valeur tableau
 db.movies.update( { title: "Alien" }, { $set: { "actors.0.nationality": "USA" } });

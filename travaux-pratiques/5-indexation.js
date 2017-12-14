@@ -1,5 +1,7 @@
 /* Utilisation de la base sirenes */
 
+// import de la base : mongoimport -d sirenes -c etablissements --file /../../sirenes.utf8.json --jsonArray
+
 // Base query
 db.etablissements.find({siret: "81072055700026"});
 

@@ -1,5 +1,7 @@
 /* Utilisation de la base movies */
 
+// import de la base movies : mongorestore -d formation -c movies  /../../movies.bson
+
 // Base query
 db.movies.find({title: "Vertigo"});
 
