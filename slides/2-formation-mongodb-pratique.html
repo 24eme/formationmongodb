@@ -103,12 +103,33 @@
 					<h3 style="text-transform: none;">Création</h3>
 					<pre><code data-trim data-noescape>db.collection.createIndex(keys, options)</code></pre>
 					<ul>
-						<li>unique : (true / false)</li>
-						<li>sparse : (true / false) uniquement les doc. contenant le champ</li>
+						<li>unique : (true / false) existence du champ ou des valeurs null.</li>
+						<li>sparse : (true / false) uniquement les doc. contenant le champ. Si requête sur champs non présent, utiliser le scan au lieu de l'index</li>
 						<li>ttl : (true / false) le document indexé a une durée de vie</li>
 						<li>name</li>
 						<li>...</li>
 					</ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Index composé</h3>
+					<p>Une clé d'index composée de plusieurs champs.</p>
+					<p>Ce type d'index est nécessaire lors d'un trie multi critères et l'ordre d'indexation est primordiale. Multiplier les index ordonnées différemment suivant les besoins ({"year" : -1, "title" : 1}, {"year" : 1, "title" : 1}) pour soulager la RAM.</p>
+					<p>Il est possible de selectionner un index avec hint({"year" : -1, "title" : 1}) ou forcer le scan hint({$natural : (-)1})</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Cas particuliers</h3>
+					<p>Les requêtes utilisant les opérateurs $where, $exists, $nin et $not (majoritairement) n'utilisent pas d'index</p>
+					<p>Un seul index est utilisée par requête sauf pour l'opérateur $or, ce qui peut s'avérer lent car il merge les resultats et supprime les doublons.</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Vigilances</h3>
+					<p>Le trie d'une requête sans index est impossible si le resultat est > 32 Mo.</p>
+					<p>Un index produit 2 requêtes : 1 sur l'index et 1 pour récupérer les documents.</p>
+					<p>Un index est efficace sur de grosses collections, de gros documents, des requêtes selectives. A l'inverse, préférer le scan.</p>
+					<p>Si le résultat d'une requête représente plus de 30% des données, il est utile de comparer les performances entre un index et un scan.</p>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Indexation</h1>
@@ -140,6 +161,8 @@
 					<h1 style="text-transform: none;">Agrégation</h1>
 					<h3 style="text-transform: none;">Map/Reduce</h3>
 					<pre><code data-trim data-noescape>db.collection.mapReduce(map, reduce, options)</code></pre>
+					<p>Puissant et flexible, le langage de requête repose sur JavaScript</p>
+					<p>Généralement lent, il est déconseillé pour des statistiques en temps réel</p>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Agrégation</h1>

@@ -10,8 +10,8 @@ mkdir /data/n3;
 /*
 mongod --port 27001  --configsvr --dbpath /data/confserv
 // A partir de 3.4
-// mongod --port 27001  --configsvr --dbpath /data/confserv1 --replSet pythagore
-// mongod --port 27001  --configsvr --dbpath /data/confserv2 --replSet pythagore
+// mongod --port 27002  --configsvr --dbpath /data/confserv2 --replSet pythagore
+// mongod --port 27003  --configsvr --dbpath /data/confserv3 --replSet pythagore
 
 mongod --port 27018 --shardsvr --dbpath /data/n1
 mongod --port 27019 --shardsvr --dbpath /data/n2

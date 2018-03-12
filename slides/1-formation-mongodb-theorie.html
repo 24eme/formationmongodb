@@ -83,6 +83,10 @@
 				</section>
 				<section>
 					<h2 style="text-transform: none;">Solutions</h2>
+					<p>NoSQL ?</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">Solutions</h2>
 					<p>En 2009 à San Francisco, Convention NoSQL</p>
 					<p>NoSQL = Not Only SQL</p>
 					<p><small>Ex: MySQL + ElasticSearch</small></p>
@@ -163,6 +167,21 @@
 					</code></pre>
 				</section>
 				<section>
+					<h2 style="text-transform: none;">MongoDB - Types</h2>
+					<ul>
+						<li><strong>Scalaires</strong> : boolean, int, float, string</li>
+						<li><strong>Composés</strong> : Array, Date, RegExp, Object (sous document)</li>
+						<li><strong>Spéciaux</strong> : null, ObjectId, BinaryData, fonction JS</li>
+					</ul>
+					<p><strong>ObjectId</strong> : identifiant unique au monde, codé sur 12 octets, distribué.</p>
+					<ul>
+						<li>0 1 2 3 4 : Timestamp</li>
+						<li>4 5 6 : Machine</li>
+						<li>7 8 : PID</li>
+						<li>9 10 11 : Increment</li>
+					</ul>
+				</section>
+				<section>
 					<h2 style="text-transform: none;">MongoDB - Propriétés</h2>
 					<ul>
 						<li>Manipule des objets BSON (Binary JSON)</li>
@@ -173,6 +192,11 @@
 						<li>Le champ "_id" est obligatoire et unique (type : ObjectId)</li>
 						<li>Mise à jour atomique d'un document</li>
 					</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - BSON</h2>
+					<p>La représentation d'un document varie en fonction du pilote, du langage</p>
+					<p>BSON : format binaire (chaine d'octet) léger partagé par tous les environnements</p>
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - Evolutions majeures</h2>
@@ -188,6 +212,13 @@
 						<li>Version 3</li>
 					</ul>
 					<p>Moteur de stockage WiredTiger</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - MMAPv1 vs WiredTiger</h2>
+					<ul>
+						<li>Lock : collection vs document</li>
+						<li>Compression : null vs Snappy, Zlib</li>
+						<li>Cohérence : journalisation vs point de controle</li>
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - Outils</h2>
@@ -218,7 +249,6 @@
 						<li>Design des données selon les besoins</li>
 						<li>Gestion des index</li>
 						<li>Utilisation de la RAM (Working Set)</li>
-						<li>Architecture 64b (WT, production)</li>
 					</ul>
 				</section>
 				<section>
@@ -238,6 +268,10 @@
 					<p><a href="http://mongodb-tools.com/" target="_blank">mongodb-tools.com</a></p>
 						<h2 style="text-transform: none;">MongoDB - Documentation</h2>
 						<p><a href="https://docs.mongodb.com/manual/reference/" target="_blank">MongoDB</a></p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Design</h2>
+					<p><a href="https://twitter.com/TheEllenShow/status/440322224407314432">Best photo ever. #oscars</a></p>
 				</section>
 			</div>
 		</div>

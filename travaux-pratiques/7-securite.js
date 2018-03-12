@@ -53,6 +53,15 @@ use movies;
 
 db.movies.count();
 
+// Role personnalise
+use admin
+
+db.createRole({role: "perso", privileges: [{resource: {db: "", collection: ""}, actions: ['update', 'insert', 'remove']}], roles: ["readAnyDatabase"]})
+
+use movies 
+
+db.createUser({user: "dev", pwd: "dev", roles: [{role: "perso", db: "admin"}]});
+
 // Chiffrement
 /*
 cd /etc/ssl/formationmdb

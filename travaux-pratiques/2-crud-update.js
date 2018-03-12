@@ -1,6 +1,10 @@
 // Modification de l'année => Oups document vidé !
 db.movies.update({title: "Vertigo"}, {year: "1959"});
 
+// Modification nom d'un champ
+
+db.students.updateMany( {}, { $rename: { "summary": "synopsis" } } )
+
 // Correction update pour modification de champ
 db.movies.update({title: "Vertigo"}, { $set: {year: "1959"}});
 

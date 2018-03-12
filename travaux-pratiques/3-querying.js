@@ -52,3 +52,14 @@ db.movies.find({ "summary": {$in: [null], $exists: true}}, {year: 1, title: 1, _
 db.movies.find({title: /matrix/i }, {year: 1, title: 1, _id: 0});
 
 db.movies.find({title: {$regex: /matri*/, $options: 'i' }}, {year: 1, title: 1, _id: 0});
+
+// $where Query
+db.movies.find({"$where" : function() { for (actor in this['actors']) { if (this['director']['birth_date'] == this['actors'][actor]['birth_date']) { return true; }} }}, {title: 1}).pretty();
+
+db.movies.find({"$where" : function() { for (actor in this.actors) { if (this.director.birth_date == this.actors[actor].birth_date) { return true; } } }}, {title: 1}).pretty();
+
+// Explain
+db.movies.find().explain("executionStats");
+
+db.movies.find().limit(5).explain("executionStats")
+

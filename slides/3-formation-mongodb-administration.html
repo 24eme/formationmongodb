@@ -219,6 +219,15 @@ net:
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Sauvegardes</h1>
+					<ol>
+						<li>Snapshot, avec journalisation activée</p></li>
+						<li>Copie : cp / rsync, stopper les écritures (db.fsyncLock() / db.fsyncUnlock()</li>
+						<li>Mongo outils d'export BSON (--oplog et --oplogReplay en RS)</li>
+						<li>MongoDB Cloud Manager / Ops Manager</li>
+					</ol>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Outils d'export</h1>
 					<p>Exports</p>
 					<pre><code>mongoexport --db 'db_name' --collection 'collection_name' --out 'file_name'.json</code></pre>
 					<pre><code>mongoexport --db 'db_name' --collection 'collection_name' --type csv --fields "champs1,champs2,..." --out 'file_name'.csv</code></pre>
@@ -227,6 +236,34 @@ net:
 					<pre><code>mongoimport --db 'db_name' --collection 'collection_name' --file 'file_name'.json</code></pre>
 					<pre><code>mongoimport --db 'db_name' --collection 'collection_name' --type csv --fields "champs1,champs2,..." --file 'file_name'.json</code></pre>
 					<pre><code>mongorestore --db 'db_name' (--collection 'collection_name') 'folder_name'/</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Monitorisation</h1>
+					<h3 style="text-transform: none;">Outils</h3>
+					<ul>
+						<li>mongostat : opérations sur la base</li>
+						<li>mongotop : activités de lecture et écriture</li>
+						<li>MongoDB Cloud Manager / Ops Manager</li>
+					<ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Monitorisation</h1>
+					<h3 style="text-transform: none;">Commandes</h3>
+					<ul>
+						<li>db.currentOp() : opérations en cours</li>
+						<li>db.serverStatus() : utilisation disque, RAM, index, les connexions, journalisation</li>
+						<li>db.stats() / db.collection.stats() : utilisation du stockage des données</li>
+						<li>rs.status() / sh.status() : état d'un RS ou cluster</li>
+					<ul>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Monitorisation</h1>
+					<h3 style="text-transform: none;">Outils Tiers</h3>
+					<ul>
+						<li>Ganglia : scripts python</li>
+						<li>Munin : interface graphique</li>
+						<li>...</li>
+					</ul>	
 				</section>
 			</div>
 		</div>

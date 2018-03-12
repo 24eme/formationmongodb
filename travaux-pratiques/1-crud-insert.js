@@ -31,3 +31,7 @@ var doc =
 ]
 };
 db.movies.insert(doc);
+
+load('1-crud-insert.js');
+
+// Lancer un script automatiquement au démarrage  : ~/.mongorc.js

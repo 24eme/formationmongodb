@@ -70,3 +70,10 @@ cfg.members[0].priority = 0.5
 cfg.members[1].priority = 2
 
 rs.reconfig(cfg);
+
+// Mode maintenance seulement sur secondaries
+use admin
+
+db.adminCommand({replSetMaintenance: 1})
+
+db.adminCommand({replSetMaintenance: 0})

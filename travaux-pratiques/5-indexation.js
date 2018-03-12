@@ -1,3 +1,8 @@
+db.movies.createIndex({title: 1, year: 1})
+db.movies.find({year : {$gte: 1997, $lte : 2000}}).sort({title: 1}).explain("executionStats")
+db.movies.createIndex({year: 1, title: 1})
+db.movies.find({year : {$gte: 1997, $lte : 2000}}).sort({title: 1}).explain("executionStats")
+
 /* Utilisation de la base sirenes */
 
 // import de la base : mongoimport -d sirenes -c etablissements --file /../../sirenes.utf8.json --jsonArray
