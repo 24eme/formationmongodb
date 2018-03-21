@@ -1,6 +1,9 @@
 db.movies.createIndex({title: 1, year: 1})
+
 db.movies.find({year : {$gte: 1997, $lte : 2000}}).sort({title: 1}).explain("executionStats")
+
 db.movies.createIndex({year: 1, title: 1})
+
 db.movies.find({year : {$gte: 1997, $lte : 2000}}).sort({title: 1}).explain("executionStats")
 
 /* Utilisation de la base sirenes */
@@ -8,9 +11,9 @@ db.movies.find({year : {$gte: 1997, $lte : 2000}}).sort({title: 1}).explain("exe
 // import de la base : mongoimport -d sirenes -c etablissements --file /../../sirenes.utf8.json --jsonArray
 
 // Base query
-db.etablissements.find({siret: "81072055700026"});
+db.etablissements.find({siren: "810720557"});
 
-db.etablissements.find({siret: "81072055700026"}).explain("executionStats");
+db.etablissements.find({siren: "810720557"}).explain("executionStats");
 
 // Recherche sur Id du resultat
 db.etablissements.find({_id: ObjectId("...")});
@@ -18,20 +21,19 @@ db.etablissements.find({_id: ObjectId("...")});
 db.etablissements.getIndexes();
 
 // Création index
-db.etablissements.createIndex({siret: 1});
+db.etablissements.createIndex({siren: 1});
 
 //Suppression index
-db.etablissements.dropIndex("siret_1");
+db.etablissements.dropIndex("siren_1");
 
 // Création index avec options
-db.etablissements.createIndex({siret: 1}, {sparse: true, unique: true});
+db.etablissements.createIndex({siren: 1, nic: 1}, {sparse: true, unique: true, background: true});
 
 // Test après index
-db.etablissements.find({siret: "81072055700026"}).explain("executionStats");
+db.etablissements.find({siren: "810720557", nic: "00026"}).explain("executionStats");
 
-db.etablissements.createIndex({siren: 1, nic: 1}, {sparse: true, unique: true});
 
-db.etablissements.createIndex({"entreprise.nomen_long": 1}, {sparse: true});
+db.etablissements.createIndex({"entreprise.nomen_long": 1});
 
 db.etablissements.find({"entreprise.nomen_long": "24EME"});
 
@@ -52,7 +54,7 @@ db.etablissements.find({$text: { $search: "24eme" }});
      [
         {
            language: "spanish",
-           quote: "Este es mi primer tweet"
+           tweet: "Este es mi primer tweet"
         },
         {
            language: "english",
@@ -74,7 +76,7 @@ db.tweets.createIndex({ tweet : "text" }, { language_override: "langue" });
 // Recherche
 db.tweets.find({$text: { $search: "...",  $language: "..." }});
 
-// Geospatial index
+// +++++++++ Geospatial index
 
 db.etablissements.createIndex({ localisation : "2dsphere" })
 

@@ -62,6 +62,12 @@ use movies
 
 db.createUser({user: "dev", pwd: "dev", roles: [{role: "perso", db: "admin"}]});
 
+// Utilisateur connecté
+db.runCommand({connectionStatus: 1})
+
+// Deconnexion
+db.logout()
+
 // Chiffrement
 /*
 cd /etc/ssl/formationmdb

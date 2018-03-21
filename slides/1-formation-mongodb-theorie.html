@@ -44,20 +44,22 @@
 						<li>Présentation et installation de MongoDB</li>
 						<li>CRUD</li>
 						<li>Indexation, Fulltext, Geospatial</li>
-						<li>Agrégation</li>
+						<li>Agrégations</li>
 						<li>Fichiers</li>
 						<li>Sécurité</li>
 						<li>Replication</li>
 						<li>Sharding</li>
+						<li>Administration, monitorisation</li>
 					</ul>
 				</section>
 				<section>
 					<h2>SGBDR</h2>
 					<ul>
 						<li>Depuis 1970</li>
-						<li>Organisation en tables</li>
-						<li>Définition d'un schéma</li>
+						<li>Organisation, définit par un schéma, en tables liées</li>
 						<li>Manipulation et recherche avec SQL</li>
+						<li>Formes normales (limiter redondances, incohérences, écritures)</li>
+						<li>Temps d'accès dégradés</li>
 						<li>Propriétés ACID des transactions :</li>
 						<ul>
 							<li>Atomicité, Tout ou rien</li>
@@ -195,7 +197,7 @@
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - BSON</h2>
-					<p>La représentation d'un document varie en fonction du pilote, du langage</p>
+					<p>La représentation JSON d'un document varie en fonction du pilote, du langage</p>
 					<p>BSON : format binaire (chaine d'octet) léger partagé par tous les environnements</p>
 				</section>
 				<section>
@@ -218,7 +220,7 @@
 					<ul>
 						<li>Lock : collection vs document</li>
 						<li>Compression : null vs Snappy, Zlib</li>
-						<li>Cohérence : journalisation vs point de controle</li>
+						<li>Cohérence : journalisation vs points de controle (checkpoints)</li>
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - Outils</h2>
@@ -256,22 +258,51 @@
 					<p>
 						Toute les données sont lues et manipulées à travers la RAM. Lire en RAM (nanosec.) est 100 000 fois plus rapide que sur le disque (millisec.)
 					</p>
-					<p>Lorsque MongoDB essaye d'accéder aux données non présente en RAM :</p>
+					<p>Lorsque MongoDB essaye d'accéder aux données non présente en RAM (page faults) :</p>
 					<ul>
 						<li>Si mémoire libre : Donnée chargé dans la RAM</li>
-						<li>Sinon : <strong>Report</strong> d'une donnée sur disque pour charger la nouvelle</li>
+						<li>Sinon : Utilisation du disque pour traiter les opérations</li>
 					</ul>
 					<p>Le WS est la partie des données et index les plus couramment utilisés</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Design</h2>
+					<p><a href="https://twitter.com/TheEllenShow/status/440322224407314432">Best photo ever. #oscars</a></p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Design</h2>
+					<table>
+						<tr>
+							<th>Embed Doc.</th>
+							<th>Référence</th>
+						</tr>
+						<tr>
+							<td style="border:none;">Petit sous doc.</td>
+							<td style="border:none;">Gros sous doc.</td>
+						</tr>
+						<tr>
+							<td style="border:none;">Faible volatilité</td>
+							<td style="border:none;">Forte volatilité</td>
+						</tr>
+						<tr>
+							<td style="border:none;">Cohérence peu importante</td>
+							<td style="border:none;">Cohérence forte nécessaire</td>
+						</tr>
+						<tr>
+							<td style="border:none;">Forte demande</td>
+							<td style="border:none;">Faible demande</td>
+						</tr>
+						<tr>
+							<td>Idéal lecture</td>
+							<td>Idéal écriture</td>
+						</tr>
+					</table>
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - Tools</h2>
 					<p><a href="http://mongodb-tools.com/" target="_blank">mongodb-tools.com</a></p>
 						<h2 style="text-transform: none;">MongoDB - Documentation</h2>
 						<p><a href="https://docs.mongodb.com/manual/reference/" target="_blank">MongoDB</a></p>
-				</section>
-				<section>
-					<h2 style="text-transform: none;">MongoDB - Design</h2>
-					<p><a href="https://twitter.com/TheEllenShow/status/440322224407314432">Best photo ever. #oscars</a></p>
 				</section>
 			</div>
 		</div>

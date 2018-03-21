@@ -33,8 +33,8 @@ sh.addShard("jb-laptop:27020");
 
 // Ajout des donnees test
 use testsh
-for (var i=0; i<100000; i++) {
-  db.users.insert({"name": "Utilisateur"+i, "created_at": new Date()});
+for (var i=0; i<50000; i++) {
+  db.users.insert({"numero": "Utilisateur"+i, "name": "Utilisateur"+i, "created_at": new Date()});
 }
 
 // Check
@@ -56,6 +56,34 @@ sh.shardCollection("testsh.users", { name : "hashed" });
 sh.status();
 
 // Test query
-db.users.find({name: "Utilisateur52368"});
+db.users.find({name: "Utilisateur22368"});
 
-db.users.find({name: "Utilisateur52368"}).explain();
+db.users.find({name: "Utilisateur22368"}).explain();
+
+// Controler la repartition
+
+sh.addShardTag('shardOOOO', 'Lot 1')
+sh.addShardTag('shardOOO1', 'Lot 2')
+sh.addShardTag('shardOOO2', 'Lot 3')
+
+sh.addTagRange('testsh.users', {name: MinKey}, {name: "Utilisateur15000"}, 'Lot 1');
+sh.addTagRange('testsh.users', {name: "Utilisateur15000"}, {name: "Utilisateur30000"}, 'Lot 2');
+sh.addTagRange('testsh.users', {name: "Utilisateur30000"}, {name: MaxKey}, 'Lot 3');
+
+sh.status();
+
+// Supprimer un shard
+use admin
+
+db.adminCommand({removeShard : "xxx" })
+
+db.adminCommand({removeShard : "xxx" }) 
+// Check le statut d'avancement et le champ remaining indique les traitements restants
+// Si le champ dbsToMove est indiqué alors :
+db.runCommand({movePrimary: "db_in_dbstomove", to: "another_shard"})
+
+db.adminCommand({removeShard : "xxx" }) // removeshard completed successfully
+
+sh.status()
+
+

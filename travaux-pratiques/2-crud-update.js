@@ -1,12 +1,11 @@
 // Modification de l'année => Oups document vidé !
 db.movies.update({title: "Vertigo"}, {year: "1959"});
 
-// Modification nom d'un champ
-
-db.students.updateMany( {}, { $rename: { "summary": "synopsis" } } )
-
 // Correction update pour modification de champ
 db.movies.update({title: "Vertigo"}, { $set: {year: "1959"}});
+
+// Modification nom d'un champ
+db.students.updateMany({}, {$rename: { "summary": "synopsis" }});
 
 // Création document si il n'existe pas
 db.movies.update( { title: "Alien" }, { $set: { year: 79, country: "USA", genre: ["Science fiction"], director: {last_name: "Scott", first_name: "Ridley", birth_date: "1937-11-30", nationality: "GB​"}}}, { upsert: 1 });

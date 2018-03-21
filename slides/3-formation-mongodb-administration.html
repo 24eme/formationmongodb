@@ -58,12 +58,38 @@
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Roles</h3>
+					<p>
+						Les roles sont stockés dans la base "admin" collection "system.roles"
+					</p>
+					<p>Liste des roles prédéfinis : <a href="https://docs.mongodb.com/v3.2/reference/built-in-roles/" target="_blank">Built in roles</a></p>
+					<p>Un role se définit par les champs:</p>
+					<ul>
+						<li>role : role name</li>
+						<li>privileges : [{resource: {db:"", collection: ""} , actions: []}]</li>
+						<li>roles : tableau des Roles hérités</li>
+						<li>authenticationRestrictions : IP / users autorisés</li>
+					</ul>
+					<p>Les roles créés en base admin, on un comportement "générique"</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
 					<h3 style="text-transform: none;">Utilisateurs - Commandes</h3>
 					<pre><code data-trim data-noescape>db.createUser(user, writeConcern)</code></pre>
 					<pre><code data-trim data-noescape>db.changeUserPassword(username, password)</code></pre>
 					<pre><code data-trim data-noescape>db.dropUser(username, writeConcern)</code></pre>
 					<pre><code data-trim data-noescape>db.grantRolesToUser(username, roles, writeConcern)</code></pre>
 					<pre><code data-trim data-noescape>db.revokeRolesFromUser(username, roles, writeConcern)</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sécurité</h1>
+					<h3 style="text-transform: none;">Roles - Commandes</h3>
+					<pre><code data-trim data-noescape>db.createRole(role, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.dropRole(rolename, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.grantRolesToRole(rolename, roles, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.revokeRolesFromRole(rolename, roles, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.grantPrivilegesToRole(rolename, privileges, writeConcern)</code></pre>
+					<pre><code data-trim data-noescape>db.revokeprivilegesFromRole(rolename, privileges, writeConcern)</code></pre>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Sécurité</h1>
@@ -74,15 +100,6 @@
 						<li>SCRAM-SHA-1 (par défaut depuis la v3)</li>
 						<li>x.509</li>
 					</ul>
-				</section>
-				<section>
-					<h1 style="text-transform: none;">Sécurité</h1>
-					<h3 style="text-transform: none;">Roles</h3>
-					<p>Liste des roles prédéfinis : <a href="https://docs.mongodb.com/v3.2/reference/built-in-roles/" target="_blank">Built in roles</a></p>
-					<p>Il est possible de créer des roles spécifiques en ajoutant des privilèges (accès aux fonctions) et des roles existants</p>
-					<p>
-						Les nouveaux roles sont stockés dans la base "admin" collection "system.roles"
-					</p>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Sécurité</h1>
@@ -163,6 +180,13 @@ net:
 					</p>
 				</section>
 				<section>
+					<h1 style="text-transform: none;">Réplication</h1>
+					<h3 style="text-transform: none;">Maintenance</h3>
+					<p>La maintenance d'une machine d'un RS, se fait sur un noeud secondaire en mode standalone : kill du mongod, start sans replication, maintenance, start en replication</p>
+					<p>Primary to secondary : rs.stepDown(min)</p>
+					<p>Ne pas élire de primary : rs.freeze(sec) sur chaque secondaries (O pour unfreeze)</p>
+				</section>
+				<section>
 					<h1 style="text-transform: none;">Sharding</h1>
 					<h3 style="text-transform: none;">Scalabilité horizontale</h3>
 					<p>
@@ -214,15 +238,67 @@ net:
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Controle répartition</h3>
+					<p>Il est possible d'intervenir sur la répartition des données entre les différentes machines en utilisant le mécanisme de tag.</p>
+					<pre><code data-trim data-noescape>sh.addShardTag('shardId', 'tagName')</code></pre>
+					<pre><code data-trim data-noescape>sh.addTagRange('bd.coll', {'shKey': 'minValKey', 'shKey: 'maxValKey'}, 'tagName')</code></pre>
+					<p>Ex: 1 shard dispose d'un SSD, les autres de spinning disks. Le SSD devra recevoir toutes les écritures (Tag + Range Sharding)</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
+					<h3 style="text-transform: none;">Controle répartition</h3>
+					<p>Il est possible de déplacer manuellement les chunk entre les différents shards.</p>
+					<pre><code data-trim data-noescape>
+use config
+db.settings.update({_id: 'balancer'},{enabled: false},{upsert: 1})
+// ou
+sh.setBalancerState(false)
+db.chunks.find();
+sh.moveChunk('bd.coll', {chunkId: 'value'}, 'shName')
+sh.setBalancerState(true)
+					</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Sharding</h1>
 					<h3 style="text-transform: none;">Exemple</h3>
 					<img style="height:221px; border:none;" alt="Replica Set" src="img/sh.png" />
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Journalisation</h1>
+					<p>MongoDB permet la durabilité des données après un crash ou une coupure du serveur</p>
+					<p>Journal : opérations d'écriture stockées dans un ensemble de fichiers</p>
+					<p>Les données sont écrites sur disque toute les minutes</p>
+					<p>Fichier de journal : opérations entre chaque flush (écriture / 100ms)</p> 
+					<pre><code>mongod --journal --journalCommitInterval 100</code></pre>
+					<p>Après un crash :</p> 
+					<pre><code>mongod --repair</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Preheating</h1>
+					<p>UNIX :</p>
+					<pre><code>
+for file in /var/lib/dbs/mydb/*
+do
+	dd if=$file of /dev/null
+done
+					</code></pre>
+					<p>MongoDB</p>
+					<pre><code>db.runCommand({touch: "db.coll", data: true, index: true})</code></pre>
+					<pre><code>db.coll.find().explain() // itération complète du résultat</code></pre>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Padding</h1>
+					<p>Une mise à jour augmentant la taille d'un document, entraine son déplacement et la formation d'espace vide entre les documents</p>
+					<p>Pour libérer cet espace, la commande compact réécrit et défragmente toutes les données d'une collection</p>
+					<pre><code>db.runCommand({compact : 'collection'})</code></pre>
+					<p>Les opérations sont bloquées pendant la durée du traitement</p>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Sauvegardes</h1>
 					<ol>
 						<li>Snapshot, avec journalisation activée</p></li>
 						<li>Copie : cp / rsync, stopper les écritures (db.fsyncLock() / db.fsyncUnlock()</li>
-						<li>Mongo outils d'export BSON (--oplog et --oplogReplay en RS)</li>
+						<li>Mongo outils d'export BSON (--oplog et --oplogReplay)</li>
 						<li>MongoDB Cloud Manager / Ops Manager</li>
 					</ol>
 				</section>
@@ -242,7 +318,7 @@ net:
 					<h3 style="text-transform: none;">Outils</h3>
 					<ul>
 						<li>mongostat : opérations sur la base</li>
-						<li>mongotop : activités de lecture et écriture</li>
+						<li>mongotop : activités (ms) de lecture et écriture disque</li>
 						<li>MongoDB Cloud Manager / Ops Manager</li>
 					<ul>
 				</section>
@@ -250,20 +326,51 @@ net:
 					<h1 style="text-transform: none;">Monitorisation</h1>
 					<h3 style="text-transform: none;">Commandes</h3>
 					<ul>
+						<li>explain() : détails d'une opération</li>
 						<li>db.currentOp() : opérations en cours</li>
-						<li>db.serverStatus() : utilisation disque, RAM, index, les connexions, journalisation</li>
+						<li>db.serverStatus() : Disque, RAM, index, les connexions, journalisation</li>
 						<li>db.stats() / db.collection.stats() : utilisation du stockage des données</li>
 						<li>rs.status() / sh.status() : état d'un RS ou cluster</li>
 					<ul>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Monitorisation</h1>
+					<h3 style="text-transform: none;">Profiler</h3>
+					<p>Le profiler MongoDB permet d'identifier les opérations longues par base</p>
+					<pre><code>db.setProfilingLevel(level, ms)</code></pre>
+					<ul>
+						<li>0 : Stopper profiling</li>
+						<li>1 : Requêtes lentes</li>
+						<li>2 : Opérations lentes</li>
+						<li>ms : durée en milliseconde</li>
+					<ul>
+					<p>Dégradation des performances (écritures sup. à chaque opération)</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Monitorisation</h1>
 					<h3 style="text-transform: none;">Outils Tiers</h3>
 					<ul>
-						<li>Ganglia : scripts python</li>
-						<li>Munin : interface graphique</li>
+						<li>Diamond et Graphite</li>
+						<li>Munin</li>
 						<li>...</li>
 					</ul>	
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Production</h1>
+					<h3 style="text-transform: none;">Recommandations</h3>
+					<ul>
+						<li>SSD</li>
+						<li>RAID 10 (éviter RAID 5)</li>
+						<li>Investissement RAM plutôt que CPU (build index, map/reduce)</li>
+						<li>Système : Linux 64bits (XFS / Ext4)</li>
+						<li>Indexer en backgrounds</li>
+						<li>Un dossier par base (--directoryperdb)</li>
+					</ul>	
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Production</h1>
+					<h3 style="text-transform: none;">Configuration</h3>
+					<a href="https://docs.mongodb.com/manual/reference/configuration-options/">Fichier de configuration</a>
 				</section>
 			</div>
 		</div>

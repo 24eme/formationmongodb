@@ -32,7 +32,6 @@
 					<h3 style="text-transform: none;">Create</h3>
 					<pre><code data-trim data-noescape>db.collection.insert(document, options)</code></pre>
 					<ul>
-						<li>ordered : (true / false)</li>
 						<li>writeConcern : (doc)</li>
 					</ul>
 				</section>
@@ -99,6 +98,17 @@
 					</ul>
 				</section>
 				<section>
+					<h1 style="text-transform: none;">Recherche</h1>
+					<h3 style="text-transform: none;">Curseurs</h3>
+					<ul>
+						<li>limit()</li>
+						<li>batchSize(nb_doc) : défaut 20</li>
+						<li>next() / hasNext()</li>
+						<li>skip(nb_doc)</li>
+						<li>size() != count()</li>
+					</ul>
+				</section>
+				<section>
 					<h1 style="text-transform: none;">Indexation</h1>
 					<h3 style="text-transform: none;">Création</h3>
 					<pre><code data-trim data-noescape>db.collection.createIndex(keys, options)</code></pre>
@@ -113,7 +123,7 @@
 				<section>
 					<h1 style="text-transform: none;">Indexation</h1>
 					<h3 style="text-transform: none;">Index composé</h3>
-					<p>Une clé d'index composée de plusieurs champs.</p>
+					<p>Une clé d'index, composée de plusieurs champs.</p>
 					<p>Ce type d'index est nécessaire lors d'un trie multi critères et l'ordre d'indexation est primordiale. Multiplier les index ordonnées différemment suivant les besoins ({"year" : -1, "title" : 1}, {"year" : 1, "title" : 1}) pour soulager la RAM.</p>
 					<p>Il est possible de selectionner un index avec hint({"year" : -1, "title" : 1}) ou forcer le scan hint({$natural : (-)1})</p>
 				</section>
@@ -130,6 +140,12 @@
 					<p>Un index produit 2 requêtes : 1 sur l'index et 1 pour récupérer les documents.</p>
 					<p>Un index est efficace sur de grosses collections, de gros documents, des requêtes selectives. A l'inverse, préférer le scan.</p>
 					<p>Si le résultat d'une requête représente plus de 30% des données, il est utile de comparer les performances entre un index et un scan.</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Indexation</h1>
+					<h3 style="text-transform: none;">Plans</h3>
+					<p><strong>Premier plan</strong> : Verrouille toutes les opérations pendant l'indexation (une base volumineuse peut prendre des heures d'indexation)</p>
+					<p><strong>Arrière plan</strong> : Pas de verrou, indexation plus lente (dégradation des performances générales)</p>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Indexation</h1>
