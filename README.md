@@ -10,6 +10,8 @@ La documentation MongoDB offre un bon guide d'installation de MongoDB sous Debia
 
 [Install MongoDB 3.4 on Debian](https://docs.mongodb.com/v3.4/tutorial/install-mongodb-on-debian/)
 
+[Install MongoDB 3.6 on Debian](https://docs.mongodb.com/v3.6/tutorial/install-mongodb-on-debian/)
+
 ## Présentation
 
 Les slides sont découpés en 3 parties :
@@ -35,5 +37,6 @@ La formation utilise 2 bases de données différentes :
 
 * [Documentation officielle MongoDB 3.2](https://docs.mongodb.com/v3.2/reference/)
 * [Documentation officielle MongoDB 3.4](https://docs.mongodb.com/v3.4/reference/)
+* [Documentation officielle MongoDB 3.6](https://docs.mongodb.com/v3.6/reference/)
 * [Outils disponible pour MongoDB](http://mongodb-tools.com/)
 * [Documentation de la base sirenes](http://sirene.fr/sirene/public/static/contenu-fichiers)
