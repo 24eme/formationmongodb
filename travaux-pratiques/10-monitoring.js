@@ -21,9 +21,10 @@ Pas de lock, données non cohérentes
 // +++++++++ Profiler
 
 // Base à étudier
+
 use sirenes 
 
-// Activation du profiler sur les queries > 100ms
+// Activation du profiler sur les queries > 100ms	
 db.setProfilingLevel(1, 100);
 db.getProfilingStatus() // check statut
 
@@ -31,7 +32,7 @@ db.getProfilingStatus() // check statut
 db.etablissements.find({siren: "810720557"}).hint({$natural : 1})
 
 // Affichage des opérations capturées
-db.system.profile.find().pretty();
+db.system.profil.find().pretty();
 
 /*
 client : IP client

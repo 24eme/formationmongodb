@@ -1,16 +1,22 @@
-// Map/Reduce
+// Map/Reduce ++
 
 var map = function() { emit(this.genre, 1); }; // combiner la clef : emit({genre: this.genre, year: this.year}, 1);
 
 var reduce = function(key, values) { return Array.sum(values)};
 
-var count = db.movies.mapReduce(map, reduce, {out: "movies_categories"});
+var count = db.movies.mapReduce(map, reduce, {out: "movies_categories"}); 
+
+// out: { inline: 1 } pour afficher directement le resultat
+
+// out: { <action>: <collectionName> } action : replace, merge, reduce
+
+// option query pour mise a jour "continue" (avec out option reduce) par tache par ex. (query: {createdAt: {$gt: new Date('yyyy-mm-dd')}}
 
 db.movies_categories.find().sort({value: -1});
 
 // Framework
 
-// Par genre
+// Par genre ++
 db.movies.aggregate([
       {
         $group : {
