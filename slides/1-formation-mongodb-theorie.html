@@ -29,10 +29,7 @@
 			<div class="slides">
 				<section>
 					<h1 style="text-transform: none;">MongoDB</h1>
-					<h3 style="text-transform: none;">Une base de données documentaire<br />NoSQL</h3>
-					<p>
-						<small>Formation basée sur MongoDB v3</small>
-					</p>
+					<h3 style="text-transform: none;">Une base de données NoSQL<br />orienté document</h3>
 					<p>
 						<small>Jean-Baptiste Le Metayer / <a href="http://www.24eme.fr" target="_blank">24ème</a></small>
 					</p>
@@ -53,11 +50,18 @@
 					</ul>
 				</section>
 				<section>
-					<h2>SGBDR</h2>
+					<h2>SGBDR 1/2</h2>
 					<ul>
-						<li>Depuis 1970</li>
+						<li>Depuis années 1970 (developpé par IBM en 1974)</li>
 						<li>Organisation, définit par un schéma, en tables liées</li>
 						<li>Manipulation et recherche avec SQL</li>
+						<li>SQL existe avant www</li>
+						<li>Adoption du SQL a partir du web2.0 (contenu dynamique)</li>
+					</ul>
+				</section>
+				<section>
+					<h2>SGBDR 2/2</h2>
+					<ul>
 						<li>Formes normales (limiter redondances, incohérences, écritures)</li>
 						<li>Temps d'accès dégradés</li>
 						<li>Propriétés ACID des transactions :</li>
@@ -71,17 +75,14 @@
 				</section>
 				<section>
 					<h2 style="text-transform: none;">L'internet mondial</h2>
-					<p>Années 2000, Les géants souffraient des limitations des SGBDR :</p>
-					<ul>
-						<li>Clusters répartis dans le monde</li>
-						<li>Quantité gigantesque de données</li>
-					</ul>
+					<p>Années 2000, Les géants souffraient des contraintes des SGBDR.<br />La volonté est de s'abstraire des transactions ACID afin de pouvoir stocker des quantités gigantesques de données hétérogènes non relationnelles.</p>
 					<p>Principaux besoins :</p>
 					<ul>
-						<li>Evolutif / Rapidité</li>
+						<li>Flexibilité (schemaless)</li>
 						<li>Performance</li>
-						<li>Réplication</li>
+						<li>Haute disponibilité</li>
 						<li>Scalabilité</li>
+						<li>Decomplexifier les usages</li>
 					</ul>
 				</section>
 				<section>
@@ -94,6 +95,7 @@
 					<p>NoSQL = Not Only SQL</p>
 					<p><small>Ex: MySQL + ElasticSearch</small></p>
 					<p>Inauguration de la communauté des développeurs de logiciel NoSQL.</p>
+					<p><small>Précurseurs : Google Big Table et Amazon DynamoDB</small></p>
 					<p>
 							<img style="height:120px; padding: 10px; border:none;" alt="MongoDB" src="img/mongodb.png" />
 							<img style="height:120px; padding: 10px; border:none;" alt="CouchDB" src="img/couchdb.png" />
@@ -113,12 +115,11 @@
 						<li>Graphes (Neo4J, ...)</li>
 						<li>Documents (CouchDB, MongoDB, ...)</li>
 					</ul>
-					<p>Les principes du NoSQL</p>
-					<ul>
-						<li >Pas de contraintes (schema, relation, transaction, ...)</li>
-						<li>Big data et performances</li>
-						<li>Scalabilité horizontale et haute disponibilité</li>
-					</ul>
+				</section>
+				<section>
+					<h3 style="text-transform: none;">MongoDB - SQL to NoSQL</h3>
+					<img style="height: 580px; float: left; border: none; margin-left: 150px;" src="img/sqlschema.png" alt="SQL" />
+					<img style="height: 580px; float: right; border: none; margin-right: 150px;" src="img/reflexionnosqldesign.png" alt="NoSQL" />
 				</section>
 				<section>
 					<h3 style="text-transform: none;">MongoDB - SQL vs NoSQL</h3>
@@ -139,6 +140,15 @@
 							<img style="height:120px; padding: 10px; border:none;" alt="NYT" src="img/nyt.jpg" />
 							<img style="height:120px; padding: 10px; border:none;" alt="Craigslist" src="img/craigslist.jpg" />
 					</p>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - C'est</h2>
+					<ul>
+						<li>Une base de données généraliste (!= Hadoop, ES, Neo4J)</li>
+						<li>De riches fonctionnalités (recherche type SQL, indexation, map/reduce, geospatial natif, aggrégation,...)</li>
+						<li>Nombreux outils connexes</li>
+						<li>Utilisation du JSON (standard API, Dev. front)</li>
+					</ul>
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - JSON</h2>
@@ -220,9 +230,6 @@
 					</ul>
 					<p>Transactions ACID multidocuments</p>
 				</section>
-<section>
-	<img style="height:620px; padding: 10px; border:none;" src="img/mongodb-roadmap.jpg" alt="MongoDB - Feuille de route">
-</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - MMAPv1 vs WiredTiger</h2>
 					<ul>
@@ -275,6 +282,7 @@
 				</section>
 				<section>
 					<h2 style="text-transform: none;">MongoDB - Design</h2>
+					<p>Idéal : autosuffisance d'un document</p>
 					<p><a href="https://twitter.com/TheEllenShow/status/440322224407314432">Best photo ever. #oscars</a></p>
 				</section>
 				<section>
@@ -307,10 +315,41 @@
 					</table>
 				</section>
 				<section>
-					<h2 style="text-transform: none;">MongoDB - Tools</h2>
-					<p><a href="http://mongodb-tools.com/" target="_blank">mongodb-tools.com</a></p>
-						<h2 style="text-transform: none;">MongoDB - Documentation</h2>
-						<p><a href="https://docs.mongodb.com/manual/reference/" target="_blank">MongoDB</a></p>
+					<h2 style="text-transform: none;">MongoDB - Pourquoi ?</h2>
+						<ul>
+							<li>données cloisonnées (dematerialisation)</li>
+							<li>application mobile</li>
+							<li>objets connectés (web3.0)</li>
+							<li>analyses de données</li>
+							<li>"moyen" big data</li>
+						</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Bonnes pratiques 1/2</h2>
+						<ul>
+							<li>toujours activer la journalisation</li>
+							<li>ws : maxdatasize + indexsize de db.stats()</li>
+							<li>stocker les données sur partition XFS (ou ext4)</li>
+							<li>utiliser versions stables pour prod. (X.2, X.4, X.6)</li>
+							<li>toujours activer l'authentification</li>
+							<li>préférer wired tiger</li>
+							<li>indexer régulièrement, desindexer l'inutile</li>
+							<li>composer ses index</li>
+							<li>indexer en background</li>
+						</ul>
+				</section>
+				<section>
+					<h2 style="text-transform: none;">MongoDB - Bonnes pratiques 2/2</h2>
+						<ul>
+							<li>utiliser les drivers maintenus par la team Mongo</li>
+							<li>désactiver "atime" et "diratime" partition / disque</li>
+							<li>swap au moins egal à la RAM</li>
+							<li>préférer SSD</li>
+							<li>désactiver NUMA (bios : gestion accès mémoire)</li>
+							<li>backups réguliers</li>
+							<li>RAID 10</li>
+							<li>Linux 64bits</li>
+						</ul>
 				</section>
 			</div>
 		</div>

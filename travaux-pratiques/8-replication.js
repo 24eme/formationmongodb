@@ -7,13 +7,15 @@ mkdir /data/n3;
 
 // Création des instances
 /*
-mongod --port 27017 --replSet formationmdb --dbpath /data/n1
+mongod --port 27017 --replSet formationmdb --dbpath /data/n1 --bind_ip 192.168...
 mongod --port 27018 --replSet formationmdb --dbpath /data/n2
 mongod --port 27019 --replSet formationmdb --dbpath /data/n3
+
+
 */
 
 // Connexion au serveur 27017
-// mongo --port 27017
+// mongo --port 27017 --host 192.168...
 
 // Initialisation de la replication
 rs.initiate();

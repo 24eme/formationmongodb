@@ -7,7 +7,7 @@ mongorestore --drop --oplogReplay --dir /dump_location/
 mongodump  --gzip --out /dump_location/
 mongorestore --drop --gzip --dir /dump_location/
 
-// query.json => {year: "1999"}
+// query.json => {year: "1999"} /!\ mettre guillemets autours du nom du champs.
 mongodump -d cinema -c movies --queryFile query.json
 
 

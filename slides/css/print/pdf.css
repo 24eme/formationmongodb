@@ -169,4 +169,6 @@ ul, ol, div, p {
 	display: block;
 	position: absolute;
 	font-size: 14px;
+	background-color: #fff;
+	color: #000;
 }

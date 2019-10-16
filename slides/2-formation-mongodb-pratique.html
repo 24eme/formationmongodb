@@ -124,7 +124,7 @@
 					<h1 style="text-transform: none;">Indexation</h1>
 					<h3 style="text-transform: none;">Index composé</h3>
 					<p>Une clé d'index, composée de plusieurs champs.</p>
-					<p>Ce type d'index est nécessaire lors d'un trie multi critères et l'ordre d'indexation est primordiale. Multiplier les index ordonnées différemment suivant les besoins ({"year" : -1, "title" : 1}, {"year" : 1, "title" : 1}) pour soulager la RAM.</p>
+					<p>Ce type d'index est nécessaire lors d'un trie multi critères et l'ordre d'indexation est primordiale. Multiplier les index ordonnés différemment suivant les besoins ({"year" : -1, "title" : 1}, {"year" : 1, "title" : 1}) pour soulager la RAM.</p>
 					<p>Il est possible de selectionner un index avec hint({"year" : -1, "title" : 1}) ou forcer le scan hint({$natural : (-)1})</p>
 				</section>
 				<section>
@@ -177,16 +177,38 @@
 					<h1 style="text-transform: none;">Agrégation</h1>
 					<h3 style="text-transform: none;">Map/Reduce</h3>
 					<pre><code data-trim data-noescape>db.collection.mapReduce(map, reduce, options)</code></pre>
+					<p>Pattern architectural créé par Google</p>
+					<p>Aggrège periodiquement un gros volume de données, de manière incremental, sans devoir scanner l'intégralité des données</p>
 					<p>Puissant et flexible, le langage de requête repose sur JavaScript</p>
-					<p>Généralement lent, il est déconseillé pour des statistiques en temps réel</p>
+					<p>Idéal pour des données d'entrées hétérogènes</p>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Agrégation</h1>
+					<h3 style="text-transform: none;">Map/Reduce</h3>
+					<p>Map/Reduce est parallelisable</p>
+					<p>Il n'affecte pas les opérations en cours (très court lock)</p>
+					<p>Merge : combine et remplace les clés existantes</p>
+					<p>Reduce : combine et réapplique le reduce sur les clés existantes</p>
+					<p>Généralement lent, utiliser l'aggrégation dans la mesure du possible</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Aggrégation</h1>
 					<h3 style="text-transform: none;">Framework</h3>
 					<pre><code data-trim data-noescape>db.collection.aggregate(pipeline, options)</code></pre>
+					<p>alternative à la recherche et à map/reduce (interroge nativement la base)</p>
+					<p>solution plus simple, plus rapide et plus performant que map/reduce</p>
 				</section>
 				<section>
-					<h1 style="text-transform: none;">Agrégation</h1>
+					<h1 style="text-transform: none;">Aggrégation</h1>
+					<h3 style="text-transform: none;">Framework</h3>
+					<p>solution plus limitée que map/reduce (opérateurs vs js)</p>
+					<p>chaque opération du pipeline est limité à 100 Mo RAM</p>
+					<p>group() non fonctionnel sur des collections shardées</p>
+					<p>résultat d'un group() <= 20 000 docs</p>
+					<p>limite 16 Mo par doc</p>
+				</section>
+				<section>
+					<h1 style="text-transform: none;">Aggrégation</h1>
 					<h3 style="text-transform: none;">Pipeline opérateurs</h3>
 					<ul>
 						<li>$project : projection</li>
@@ -200,7 +222,7 @@
 					</ul>
 				</section>
 				<section>
-					<h1 style="text-transform: none;">Agrégation</h1>
+					<h1 style="text-transform: none;">Aggrégation</h1>
 					<h3 style="text-transform: none;">$group opérateur</h3>
 					<ul>
 						<li>_id : clef d'agrégation</li>
@@ -209,26 +231,6 @@
 						<li>$max et $min : valeur max / min des docs</li>
 						<li>$push : ajouter de l'information</li>
 					</ul>
-				</section>
-				<section>
-					<h1 style="text-transform: none;">Agrégation</h1>
-					<h3 style="text-transform: none;">$lookup exemple</h3>
-						<pre><code>
-movie doc :
-{ "_id": 1, "title": "Vertigo", "year": 1958, "director": 1 }
-
-people doc :
-{ "_id": 1, "first_name": "Alfred", "last_name": "Hitchcock" }
-
-db.people.aggregate([{
-$lookup:
-{
-  localField: "_id",
-  from: "movie",
-  foreignField: "director",
-  as: "a_realise"
-}
-						</code></pre>
 				</section>
 				<section>
 					<h1 style="text-transform: none;">Fichiers</h1>
