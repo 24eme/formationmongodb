@@ -96,6 +96,35 @@ db.parkings.aggregate([
 	  { $addFields: { delegataire:  { $arrayElemAt: [ { $split: [ "$_id", "_" ] }, 0 ] }, arrondissement: { $arrayElemAt: [ { $split: [ "$_id", "_" ] } , 1 ] }} },
 	  {$sort: { delegataire: 1, nbParking: -1 }}
 ]);
+//---------------------------
+db.parkings.aggregate([
+	{$addFields: {
+		"arrondissement_full": {
+			$concat: [{
+				$cond:{
+					if: {$lt: ["$arrondissement", 10] }, 
+					then: "7500" ,else: "750"
+				}}, 
+				{$convert: {input: "$arrondissement", to: 2} 
+			}]
+		}
+	}}, 
+	{$group: {_id: {delegataire:"$delegataire",arrondissement: "$arrondissement_full"}, nbParkings: {$sum: 1} }}, 
+	{$sort: {nbParkings: -1}}, 
+	{$project: {_id: {$concat: ["$_id.delegataire", "_","$_id.arrondissement"]}, nbParkings: "$nbParkings" }} ])
+
+//---------------------------
+db.parkings.aggregate(
+    {$addFields:{"arrondissement": {$toString: {$add: [75000,"$arrondissement"]}}}},
+    {$group: {"_id" : {$concat: ["$delegataire","_","$arrondissement"]},"nombre_parking": {$sum: 1}}},
+	{$sort: { "nombre_parking": -1 }},
+    {$limit: 3}
+)
+//----------------------------------
+db.parkings.aggregate([
+        {$group: {"_id": {"delegataire": "$delegataire","arrondissement": "$arrondissement"},"nbParkings": { $sum: 1 },}},
+        {$sort: { "nbParkings": -1 }},
+        {$project: {"_id": {$concat: ["$_id.delegataire", "_", { "$toString": { $add: [ 75000, "$_id.arrondissement" ] } }]},"nbParkings": 1}}]);
 
 /******************
 *
