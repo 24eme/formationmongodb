@@ -150,6 +150,33 @@ db.stationnements.aggregate([
            _id : "$parking",
            nbStationnement: { $sum: 1 }
       }},
+	  {$facet: {
+		"TOP5" : [
+			{$sort: { nbStationnement: -1 }},
+			{ $limit : 5 },
+	  		{$lookup:{from: "parkings", localField: "_id", foreignField: "_id", as: "parkingInfos"}},
+	  		{$project: { "nbStationnement": 1, "parkingInfos.delegataire": 1, "parkingInfos.arrondissement": 1, "parkingInfos.nom": 1} },
+	  		{$replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$parkingInfos", 0 ] }, "$$ROOT" ] } }},
+	  		{$unset: "parkingInfos"}
+		],
+		"FLOP5" : [
+			{$sort: { nbStationnement: 1 }},
+			{ $limit : 5 },
+	  		{$lookup:{from: "parkings", localField: "_id", foreignField: "_id", as: "parkingInfos"}},
+	  		{$project: { "nbStationnement": 1, "parkingInfos.delegataire": 1, "parkingInfos.arrondissement": 1, "parkingInfos.nom": 1} },
+	  		{$replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$parkingInfos", 0 ] }, "$$ROOT" ] } }},
+	  		{$unset: "parkingInfos"}
+		]
+	  }}
+]).pretty();
+
+//-------------------------
+
+db.stationnements.aggregate([
+      {$group : {
+           _id : "$parking",
+           nbStationnement: { $sum: 1 }
+      }},
 	  {$lookup:{from: "parkings", localField: "_id", foreignField: "_id", as: "parkingInfos"}},
 	  {$project: { "nbStationnement": 1, "parkingInfos.delegataire": 1, "parkingInfos.arrondissement": 1, "parkingInfos.nom": 1} },
 	  {$replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$parkingInfos", 0 ] }, "$$ROOT" ] } }},
