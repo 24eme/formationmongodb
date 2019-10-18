@@ -196,10 +196,7 @@ db.vehicules.aggregate([
 
 /******************
 *
-* CA abonnement 2018
+* CA abonnement
 *
 *******************/
-db.vehicules.aggregate([
-  {$match : { "abonne": true }},
-  {$project: {"type": 1, "stationnements.parking": 1}},
- ])
+
